@@ -2,6 +2,7 @@ package handler
 
 import (
 	"html/template"
+	"learn-webdev-go/entity"
 	"log"
 	"net/http"
 	"path"
@@ -69,8 +70,16 @@ func ProductHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//  baca data
-	data := map[string]int{
-		"content": idNum,
+	//data := map[string]int{
+	//	"content": idNum,
+	//}
+	//memasukkan data berupa struct ke layout
+	//data := entity.Product{ID: 1, Name: "Mobilio", Price: 220000000, Stock: 3}
+	//memasukkan data berupa slice of struct ke layout
+	data := []entity.Product{
+		{ID: 1, Name: "Mobilio", Price: 220000000, Stock: 11},
+		{ID: 2, Name: "Xpander", Price: 270000000, Stock: 8},
+		{ID: 3, Name: "Pajero Sport", Price: 500000000, Stock: 2},
 	}
 	//  tampilkan template
 	err = templ.Execute(w, data)

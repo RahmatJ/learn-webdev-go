@@ -1,7 +1,29 @@
 {{ template "layout" .}}
 
 {{ define "main"}}
-<div class="text">
-    Product Id : {{ .content }}
-</div>
+{{/*<div class="text">*/}}
+{{/*    Product Id : {{ .ID }}*/}}
+{{/*</div>*/}}
+{{/*<div class="text">*/}}
+{{/*    Product Name : {{ .Name }}*/}}
+{{/*</div>*/}}
+{{/*<div class="text">*/}}
+{{/*    Product Price : {{ .Price }}*/}}
+{{/*</div>*/}}
+{{/*<div class="text">*/}}
+{{/*    Product Stock : {{ .Stock }}*/}}
+{{/*</div>*/}}
+    {{/*  untuk mengakses setiap elemen struct  */}}
+    {{ range . }}
+        <div class="text">
+            {{/*      memanggil method dalam layout      */}}
+            {{ .Name }} - {{ .Price }} - {{ .StockStatus }}
+        </div>
+        <div class="text">
+            {{/* conditional di template, harus diakhiri end tag*/}}
+            {{ if lt .Stock 3 }}
+                Stock hampir habis
+            {{ end }}
+        </div>
+    {{ end }}
 {{ end }}
