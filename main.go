@@ -1,6 +1,7 @@
 package main
 
 import (
+	"learn-webdev-go/handler"
 	"log"
 	"net/http"
 )
@@ -10,8 +11,9 @@ func main() {
 	mux := http.NewServeMux()
 
 	//untuk mengatur endpoint path dan handlernya
-	mux.HandleFunc("/hello", helloHandler)
-	mux.HandleFunc("/", rootHandler) //root
+	mux.HandleFunc("/", handler.RootHandler) //root
+	mux.HandleFunc("/hello", handler.HelloHandler)
+	mux.HandleFunc("/product", handler.ProductHandler)
 	//semua route yang tidak didaftarkan akan selalu masuk ke root endpoints
 
 	log.Println("Starting web on port 8080")
@@ -19,18 +21,4 @@ func main() {
 	err := http.ListenAndServe(":8080", mux)
 	//jika ada error akan dilakukan log fatal
 	log.Fatal(err)
-}
-
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Halo dunia, lagi belajar golang nih"))
-}
-
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	//perlu handle not found untuk selain "/"
-	log.Println(r.URL.Path)
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	w.Write([]byte("Welcome home"))
 }
